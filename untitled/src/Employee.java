@@ -10,6 +10,13 @@ public class Employee {
     private double salary;
     private int hoursAttended;
 
+    public Employee(String firstName, String lastName, String position, double salary){
+        this.firstName=firstName;
+        this.lastName=lastName;
+        this.position=position;
+        this.salary=salary;
+    }
+
     public String getFirstName() {
         return firstName;
     }

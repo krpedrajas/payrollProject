@@ -50,16 +50,20 @@ public class EmployeeUI extends JFrame implements ActionListener {
         buttonsPanel=new JPanel(new FlowLayout());
 
         addButton=new JButton("ADD");
+        addButton.addActionListener(this);
         buttonsPanel.add(addButton);
         deleteButton=new JButton("DELETE");
+        deleteButton.addActionListener(this);
         buttonsPanel.add(deleteButton);
         updateButton=new JButton("UPDATE");
+        updateButton.addActionListener(this);
         buttonsPanel.add(updateButton);
 
         container.add(buttonsPanel, BorderLayout.CENTER);
 
         tableModel=new EmployeeTableModel();
         table=new JTable(tableModel);
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         JScrollPane scrollPane=new JScrollPane(table);
         container.add(scrollPane, BorderLayout.SOUTH);
 
@@ -81,7 +85,48 @@ public class EmployeeUI extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if(e.getSource()==addButton){
+            String firstName=firstNameField.getText();
+            String lastName=lastNameField.getText();
+            String position=positionField.getText();
+            String salary= salaryField.getText();
+            if(firstName.isEmpty()||lastName.isEmpty()||position.isEmpty()||salary.isEmpty()){
+                JOptionPane.showMessageDialog(null, "Please fill in all fields.");
+            }else {
+                double s=Double.parseDouble(salary);
+                tableModel.addToTable(new Employee(firstName, lastName, position, s));
+                firstNameField.setText("");
+                lastNameField.setText("");
+                positionField.setText("");
+                salaryField.setText("");
+            }
+        }else if (e.getSource()==deleteButton){
+            if(table.getSelectedRow()==-1){
+                JOptionPane.showMessageDialog(null, "No row was selected.");
+            }else {
+                tableModel.deleteFromTable(table.getSelectedRows());
+                firstNameField.setText("");
+                lastNameField.setText("");
+                positionField.setText("");
+                salaryField.setText("");
+            }
+        }else if(e.getSource()==updateButton){
+            String firstName=firstNameField.getText();
+            String lastName=lastNameField.getText();
+            String position=positionField.getText();
+            String salary= salaryField.getText();
 
+            if(table.getSelectedRow()==-1){
+                JOptionPane.showMessageDialog(null, "No row was selected.");
+            }else {
+                tableModel.editSelectedRow(table.getSelectedRow(), firstName, lastName, position, salary);
+                firstNameField.setText("");
+                lastNameField.setText("");
+                positionField.setText("");
+                salaryField.setText("");
+            }
+
+        }
     }
 
     public static void main(String[] args) {
