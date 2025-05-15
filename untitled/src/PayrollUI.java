@@ -10,9 +10,15 @@ public class PayrollUI extends JFrame {
     PayrollTableModel model;
     JTable table;
     JPanel formPanel,buttonPanel;
+    JScrollPane scrollPane;
+    BorderLayout layout;
 
 
     public PayrollUI (){
+
+        c = this.getContentPane();
+        layout = new BorderLayout();
+        c.setLayout(layout);
 
         firstName = new JLabel("First Name:");
         lastName = new JLabel("Last Name:");
@@ -63,19 +69,27 @@ public class PayrollUI extends JFrame {
 
         model = new PayrollTableModel();
         table = new JTable(model);
-        JScrollPane tableScroll = new JScrollPane(table);
+        scrollPane = new JScrollPane(table);
 
-        c.add(formPanel, BorderLayout.NORTH);
-        c.add(buttonPanel, BorderLayout.CENTER);
-        c.add(tableScroll, BorderLayout.SOUTH);
+        JPanel topPanel = new JPanel();
+        topPanel.setLayout(new BorderLayout());
+        topPanel.add(formPanel, BorderLayout.CENTER);
+        topPanel.add(buttonPanel, BorderLayout.SOUTH);
+
+        c.add(topPanel, BorderLayout.NORTH);
+        c.add(scrollPane, BorderLayout.CENTER);
 
         this.setVisible(true);
-        this.setTitle("Employee Page");
+        this.setTitle("Payroll");
         this.pack();
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setSize(800, 600);
         this.setLocationRelativeTo(null);
+    }
+
+    public static void main(String[] args) {
+        PayrollUI payrollUI = new PayrollUI();
     }
 
 }
