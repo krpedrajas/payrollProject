@@ -8,6 +8,8 @@ public class PayrollUI extends JFrame {
     JButton nextB,backB,saveB;
     Container c;
 
-    
+    public PayrollUI (){
+
+    }
 
 }

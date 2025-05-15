@@ -7,14 +7,14 @@ public class Employee {
     //   - Track employee attendance and leaves.
 
     private String firstName, lastName, position;
-    private double salary;
+    private double hourlyRate;
     private int hoursAttended;
 
     public Employee(String firstName, String lastName, String position, double salary){
         this.firstName=firstName;
         this.lastName=lastName;
         this.position=position;
-        this.salary=salary;
+        this.hourlyRate =salary;
     }
 
     public String getFirstName() {
@@ -41,12 +41,12 @@ public class Employee {
         this.position = position;
     }
 
-    public double getSalary() {
-        return salary;
+    public double getHourlyRate() {
+        return hourlyRate;
     }
 
-    public void setSalary(double salary) {
-        this.salary = salary;
+    public void setHourlyRate(double hourlyRate) {
+        this.hourlyRate = hourlyRate;
     }
 
     public int getHoursAttended() {
