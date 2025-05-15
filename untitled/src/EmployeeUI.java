@@ -85,6 +85,7 @@ public class EmployeeUI extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
+
         EmployeeUI ui=new EmployeeUI("Employee UI");
     }
 }
