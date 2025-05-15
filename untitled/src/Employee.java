@@ -122,4 +122,52 @@ public class Employee {
     public void setSalaryCap(double salaryCap) {
         this.salaryCap = salaryCap;
     }
+
+    public double getDeductions() {
+        return deductions;
+    }
+
+    public void setDeductions(double deductions) {
+        this.deductions = deductions;
+    }
+
+    public double getGrossPay() {
+        return grossPay;
+    }
+
+    public void setGrossPay(double grossPay) {
+        this.grossPay = grossPay;
+    }
+
+    public double getSSS() {
+        return SSS;
+    }
+
+    public void setSSS(double SSS) {
+        this.SSS = SSS;
+    }
+
+    public double getPagIbig() {
+        return pagIbig;
+    }
+
+    public void setPagIbig(double pagIbig) {
+        this.pagIbig = pagIbig;
+    }
+
+    public double getWithHoldingTax() {
+        return withHoldingTax;
+    }
+
+    public void setWithHoldingTax(double withHoldingTax) {
+        this.withHoldingTax = withHoldingTax;
+    }
+
+    public double getNetPay() {
+        return netPay;
+    }
+
+    public void setNetPay(double netPay) {
+        this.netPay = netPay;
+    }
 }
