@@ -27,6 +27,23 @@ public class EmployeeTableModel extends AbstractTableModel {
         this.fireTableDataChanged();
     }
 
+    public void editSelectedRow(int index, String firstName, String lastName, String position, String salary){
+        if(!firstName.isEmpty()){
+            employees.get(index).setFirstName(firstName);
+        }
+        if(!lastName.isEmpty()){
+            employees.get(index).setLastName(lastName);
+        }
+        if(!position.isEmpty()){
+            employees.get(index).setPosition(position);
+        }
+        if(!salary.isEmpty()){
+            double s=Double.parseDouble(salary);
+            employees.get(index).setSalary(s);
+        }
+        this.fireTableDataChanged();
+    }
+
     @Override
     public int getRowCount() {
         return employees.size();
