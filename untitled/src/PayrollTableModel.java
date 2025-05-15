@@ -6,6 +6,12 @@ public class PayrollTableModel extends AbstractTableModel {
     ArrayList<Employee> employees;
     String [] columns = {"Name", "Position", "Gross Salary", "Net Salary", "Total Deductions", "Work Hours"};
 
+    public PayrollTableModel (){
+        employees = new ArrayList<>();
+    }
+
+    
+
     @Override
     public int getRowCount() {
         return employees.size();
@@ -31,9 +37,13 @@ public class PayrollTableModel extends AbstractTableModel {
             case 1:
                 return e.getPosition();
             case 2:
-                return String.format("%.2f", e.getHourlyRate() * e.getHoursAttended());
+                return e.getGrossPay();
             case 3:
-                return e.getHourlyRate();
+                return e.getNetPay();
+            case 4:
+                return e.getDeductions();
+            case 5:
+                return e.getHoursAttended();
         }
         return null;
     }

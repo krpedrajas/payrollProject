@@ -8,6 +8,7 @@ public class EmployeeTableModel extends AbstractTableModel {
 
 
     public EmployeeTableModel(){
+
         employees = new ArrayList<>();
     }
 
