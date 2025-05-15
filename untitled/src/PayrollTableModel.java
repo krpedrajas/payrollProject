@@ -10,7 +10,21 @@ public class PayrollTableModel extends AbstractTableModel {
         employees = new ArrayList<>();
     }
 
-    
+    public void addToTable(Employee e){
+        employees.add(e);
+        this.fireTableDataChanged();
+    }
+
+    public void deleteFromTable(int[] index){
+        if(this.getRowCount()>1){
+            for(int i=index.length-1;i>=0;i--){
+                employees.remove(index[i]);
+            }
+        }else{
+            employees.remove(index[0]);
+        }
+        this.fireTableDataChanged();
+    }
 
     @Override
     public int getRowCount() {
