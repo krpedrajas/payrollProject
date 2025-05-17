@@ -13,7 +13,7 @@ public class EmployeeUI extends JFrame implements ActionListener {
 
     JTable table;
     EmployeeTableModel tableModel;
-    JButton addButton, deleteButton, updateButton;
+    JButton addButton, deleteButton, updateButton, toPayRollButton;
     JTextField firstNameField, lastNameField, positionField, salaryField;
     JLabel firstNameLabel, lastNameLabel, positionLabel, salaryLabel;
     JPanel infoPanel, buttonsPanel;
@@ -58,6 +58,8 @@ public class EmployeeUI extends JFrame implements ActionListener {
         updateButton=new JButton("UPDATE");
         updateButton.addActionListener(this);
         buttonsPanel.add(updateButton);
+        toPayRollButton=new JButton("TO PAYROLL");
+        buttonsPanel.add(toPayRollButton);
 
         container.add(buttonsPanel, BorderLayout.CENTER);
 
@@ -72,6 +74,24 @@ public class EmployeeUI extends JFrame implements ActionListener {
         this.pack();
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        toPayRollButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selectedRow = table.getSelectedRow();
+                if(selectedRow != -1){
+                    Employee selectedEmployee = tableModel.getEmployeeAt(selectedRow);
+
+                    PayrollUI payrollUI = new PayrollUI(selectedEmployee);
+                    payrollUI.setVisible(true);
+
+                    EmployeeUI.this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(EmployeeUI.this, "Please select an employee", "Warning" , JOptionPane.WARNING_MESSAGE);
+                }
+
+            }
+        });
     }
 
     public void addToPanel(Component component, int gridx, int gridy, int gridW) {
@@ -128,6 +148,7 @@ public class EmployeeUI extends JFrame implements ActionListener {
 
         }
     }
+
 
     public static void main(String[] args) {
 

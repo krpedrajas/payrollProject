@@ -14,7 +14,7 @@ public class PayrollUI extends JFrame {
     BorderLayout layout;
 
 
-    public PayrollUI (){
+    public PayrollUI (Employee selectedEmployee){
 
         c = this.getContentPane();
         layout = new BorderLayout();
@@ -88,8 +88,6 @@ public class PayrollUI extends JFrame {
         this.setLocationRelativeTo(null);
     }
 
-    public static void main(String[] args) {
-        PayrollUI payrollUI = new PayrollUI();
-    }
+
 
 }

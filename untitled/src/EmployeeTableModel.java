@@ -71,4 +71,8 @@ public class EmployeeTableModel extends AbstractTableModel {
             return employee.getHourlyRate();
         }
     }
+    public Employee getEmployeeAt(int rowIndex) {
+        return employees.get(rowIndex);
+    }
+
 }
