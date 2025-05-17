@@ -8,6 +8,7 @@ public class EmployeeTableModel extends AbstractTableModel {
 
 
     public EmployeeTableModel(){
+
         employees = new ArrayList<>();
     }
 
@@ -39,7 +40,7 @@ public class EmployeeTableModel extends AbstractTableModel {
         }
         if(!salary.isEmpty()){
             double s=Double.parseDouble(salary);
-            employees.get(index).setSalary(s);
+            employees.get(index).setHourlyRate(s);
         }
         this.fireTableDataChanged();
     }
@@ -67,7 +68,11 @@ public class EmployeeTableModel extends AbstractTableModel {
         }else if(columnIndex==1){
             return employee.getPosition();
         }else{
-            return employee.getSalary();
+            return employee.getHourlyRate();
         }
     }
+    public Employee getEmployeeAt(int rowIndex) {
+        return employees.get(rowIndex);
+    }
+
 }
