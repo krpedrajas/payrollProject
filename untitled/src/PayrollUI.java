@@ -29,12 +29,19 @@ public class PayrollUI extends JFrame {
         workHours = new JLabel("Work Hours:");
 
         firstNameField = new JTextField(15);
+        firstNameField.setText(selectedEmployee.getFirstName());
         lastNameField = new JTextField(15);
+        lastNameField.setText(selectedEmployee.getLastName());
         positionField = new JTextField(15);
+        positionField.setText(selectedEmployee.getPosition());
         gorssSalaryField = new JTextField(10);
+        gorssSalaryField.setText(String.format("%.2f", selectedEmployee.getGrossPay()));
         netSalaryField = new JTextField(10);
+        netSalaryField.setText(String.format("%.2f", selectedEmployee.getNetPay()));
         deductionsField = new JTextField(10);
+        deductionsField.setText(String.format("%.2f", selectedEmployee.getDeductions()));
         workHoursField = new JTextField(10);
+        workHoursField.setText(String.format("%.2f", selectedEmployee.getHoursAttended()));
 
         gorssSalaryField.setEditable(false);
         netSalaryField.setEditable(false);
@@ -87,7 +94,4 @@ public class PayrollUI extends JFrame {
         this.setSize(800, 600);
         this.setLocationRelativeTo(null);
     }
-
-
-
 }
