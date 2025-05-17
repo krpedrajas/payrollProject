@@ -84,20 +84,17 @@ public class AttendanceUI extends JFrame {
                 try {
                     SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 
-                   
+
                     Date clockInTime = sdf.parse(clockInField.getText());
                     Date clockOutTime = sdf.parse(clockOutField.getText());
 
                     long milliseconds = clockOutTime.getTime() - clockInTime.getTime();
                     double hoursWorked = milliseconds / (1000.0 * 60 * 60);
 
-                    JOptionPane.showMessageDialog(AttendanceUI.this,
-                            "Hours worked: " + String.format("%.2f", hoursWorked));
+                    JOptionPane.showMessageDialog(AttendanceUI.this, "Hours worked: " + String.format("%.4f", hoursWorked));
 
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(AttendanceUI.this,
-                            "Please clock in before clocking out.",
-                            "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(AttendanceUI.this, "Please clock in before clocking out.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
