@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class Employee {
 
     // **Employee Management**
@@ -8,7 +10,7 @@ public class Employee {
 
     private String firstName, lastName, position;
     private double hourlyRate;
-    private int hoursAttended;
+    private double hoursAttended;
     private double deductions;
     private double salaryCap;
     private double grossPay;
@@ -73,11 +75,11 @@ public class Employee {
         this.hourlyRate = hourlyRate;
     }
 
-    public int getHoursAttended() {
+    public double getHoursAttended() {
         return hoursAttended;
     }
 
-    public void setHoursAttended(int hoursAttended) {
+    public void setHoursAttended(double hoursAttended) {
         this.hoursAttended = hoursAttended;
     }
 
