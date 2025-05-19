@@ -1,6 +1,8 @@
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MainUi extends JFrame {
 
@@ -30,25 +32,29 @@ public class MainUi extends JFrame {
         panel1.add(title);
         addToContainer(panel1, 0,0);
 
-//        JPanel panel2 = new JPanel(new FlowLayout(FlowLayout.CENTER));
-//        panel2.add(attendancechecking);
-//        panel2.add(button1);
-//        addToContainer(panel2,0,1);
-//
-//        JPanel panel3 = new JPanel(new FlowLayout(FlowLayout.CENTER));
-//        panel3.add(employeedetails);
-//        panel3.add(button2);
-//        addToContainer(panel3,0,2);
-//
-//        JPanel panel4 = new JPanel(new FlowLayout(FlowLayout.CENTER));
-//        panel4.add(reports);
-//        panel4.add(button3);
-//        addToContainer(panel4,0,3);
 
         addToContainer(button1,0,1);
         addToContainer(button2,0,2);
         addToContainer(button3,0,3);
         addToContainer(bwahaha,0,4);
+
+//        button1.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                AttendanceUI attendanceUI = new AttendanceUI();
+//                attendanceUI.setVisible(true);
+//                MainUi.this.dispose();
+//            }
+//        });
+
+        button2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                EmployeeUI employeeUI = new EmployeeUI();
+                employeeUI.setVisible(true);
+                MainUi.this.dispose();
+            }
+        });
 
 
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
