@@ -3,35 +3,32 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class AttendanceUI extends JFrame {
-    JLabel employeeIdLabel, nameLabel, dateLabel, clockInLabel, clockOutLabel;
-    JTextField employeeIdField, nameField, dateField, clockInField, clockOutField;
-    JButton clockInButton, clockOutButton, backButton, saveButton;
+    JLabel employeeIdLabel, dateLabel, clockInLabel, clockOutLabel, timeLabel;
+    JTextField employeeIdField, dateField, clockInField, clockOutField, timeField;
+    JButton clockInButton, clockOutButton, backButton;
     Container c;
-    JPanel formPanel, buttonPanel;
-    private List<Employee> employees;
+    JPanel formPanel, timePanel, buttonPanel;
 
-    public AttendanceUI (List<Employee> employees){
-        this.employees = employees;
+    public AttendanceUI (ArrayList<Employee> employees){
+//        this.employees = employees;
         c = this. getContentPane();
         c.setLayout(new BorderLayout());
 
         employeeIdLabel = new JLabel("Employee ID: ");
-        nameLabel = new JLabel("Name: ");
         dateLabel = new JLabel("Date Today: ");
         clockInLabel = new JLabel("Clock In: ");
         clockOutLabel = new JLabel("Clock Out: ");
 
         employeeIdField = new JTextField(15);
-        nameField = new JTextField(15);
         dateField = new JTextField(10);
         clockInField = new JTextField(10);
         clockOutField = new JTextField(10);
 
-        dateField.setEditable(false);
         clockInField.setEditable(false);
         clockOutField.setEditable(false);
 
@@ -41,28 +38,31 @@ public class AttendanceUI extends JFrame {
         clockInButton = new JButton("Clock In");
         clockOutButton = new JButton("Clock Out");
         backButton = new JButton("Back");
-        saveButton = new JButton("Save");
 
         formPanel = new JPanel(new GridLayout(5, 2, 10, 10));
         formPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         formPanel.add(employeeIdLabel);
         formPanel.add(employeeIdField);
-        formPanel.add(nameLabel);
-        formPanel.add(nameField);
         formPanel.add(dateLabel);
         formPanel.add(dateField);
         formPanel.add(clockInLabel);
         formPanel.add(clockInField);
         formPanel.add(clockOutLabel);
         formPanel.add(clockOutField);
-
+        //
+        timeLabel=new JLabel("Time:");
+        timeField=new JTextField(4);
+        timePanel=new JPanel(new FlowLayout());
+        timePanel.add(timeLabel);
+        timePanel.add(timeField);
+        //
         buttonPanel = new JPanel(new FlowLayout());
         buttonPanel.add(backButton);
         buttonPanel.add(clockInButton);
         buttonPanel.add(clockOutButton);
-        buttonPanel.add(saveButton);
 
-        c.add(formPanel, BorderLayout.CENTER);
+        c.add(formPanel, BorderLayout.NORTH);
+        c.add(timePanel, BorderLayout.CENTER);
         c.add(buttonPanel, BorderLayout.SOUTH);
 
         this.setTitle("AttendanceUI");
@@ -75,8 +75,7 @@ public class AttendanceUI extends JFrame {
         clockInButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String currentTime = new SimpleDateFormat("HH:mm:ss").format(new Date());
-                clockInField.setText(currentTime);
+                clockInField.setText(timeField.getText());
             }
         });
 
@@ -84,11 +83,11 @@ public class AttendanceUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                String currentTime = new SimpleDateFormat("HH:mm:ss").format(new Date());
-                clockOutField.setText(currentTime);
+                clockOutField.setText(timeField.getText());
 
                 try {
-                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+
 
 
                     Date clockInTime = sdf.parse(clockInField.getText());
@@ -97,15 +96,13 @@ public class AttendanceUI extends JFrame {
                     long milliseconds = clockOutTime.getTime() - clockInTime.getTime();
                     double hoursWorked = milliseconds / (1000.0 * 60 * 60);
 
-                    String firstName = employeeIdField.getText().trim();
-                    String lastName = nameField.getText().trim();
+                    String employeeId = employeeIdField.getText().trim();
 
                     Employee matchedEmployee = null;
 
-                    for(Employee emp : employees){
-                        if(emp.getEmployeeId().equalsIgnoreCase(firstName)
-                        && emp.getName().equalsIgnoreCase(lastName)){
-                            matchedEmployee = emp;
+                    for(Employee employee : employees){
+                        if(employee.getEmployeeId().equals(employeeId)){
+                            matchedEmployee = employee;
                             break;
                         }
                     }
@@ -115,8 +112,8 @@ public class AttendanceUI extends JFrame {
                         matchedEmployee.setHoursAttended(totalHours);
 
                         JOptionPane.showMessageDialog(AttendanceUI.this,
-                                "Clocked out. Hours worked: " + String.format("%.4f", hoursWorked)+
-                                "\nTotal hours for " + matchedEmployee.getEmployeeId() + matchedEmployee.getName() +
+                                "Clocked out.\nHours worked: " + String.format("%.4f", hoursWorked)+
+                                "\nTotal hours for " + matchedEmployee.getName() +
                                 ": " + String.format("%.4f", totalHours));
                     }else{
                         JOptionPane.showMessageDialog(AttendanceUI.this,
@@ -136,6 +133,11 @@ public class AttendanceUI extends JFrame {
         });
     }
 
+    public static void main(String[] args) {
+        ArrayList<Employee> employees=new ArrayList<>();
+        employees.add(new Employee("1", "Kenneth Pedrajas", "Engineer", 500));
+        AttendanceUI attendanceUI=new AttendanceUI(employees);
+    }
 
 
 }
