@@ -5,7 +5,7 @@ public class PayrollUI extends JFrame {
 
     JLabel employeeIdLabel, nameLabel, positionLabel, grossSalaryLabel, netSalaryLabel, deductionsLabel, workHoursLabel;
     JTextField employeeIdField, nameField, positionField, grossSalaryField, netSalaryField,deductionsField,workHoursField;
-    JButton backB, confirmWagePaymentB;
+    JButton backB;
     Container c;
     PayrollTableModel model;
     JTable table;
@@ -53,7 +53,6 @@ public class PayrollUI extends JFrame {
         deductionsField.setEditable(false);
 
         backB = new JButton("Back");
-        confirmWagePaymentB = new JButton("Confirm Wage Payment");
 
         formPanel = new JPanel(new GridLayout(7, 2, 10 ,10));
         formPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -75,7 +74,6 @@ public class PayrollUI extends JFrame {
 
         buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
         buttonPanel.add(backB);
-        buttonPanel.add(confirmWagePaymentB);
 
         //might not use table for payroll page anymore (not final do not delete)
 
@@ -96,7 +94,11 @@ public class PayrollUI extends JFrame {
         this.pack();
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setSize(800, 600);
+//        this.setSize(800, 600);
         this.setLocationRelativeTo(null);
+    }
+
+    public static void main(String[] args) {
+        PayrollUI payrollUI=new PayrollUI(new Employee("1", "Kenneth Pedrajas", "Engineer", 500, 150));
     }
 }
