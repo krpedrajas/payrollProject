@@ -3,13 +3,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class AttendanceUI extends JFrame {
-    JLabel firstNameLabel, lastNameLabel, dateLabel, clockInLabel, clockOutLabel;
-    JTextField firstNameField, lastNameField, dateField, clockInField, clockOutField;
+    JLabel employeeIdLabel, nameLabel, dateLabel, clockInLabel, clockOutLabel;
+    JTextField employeeIdField, nameField, dateField, clockInField, clockOutField;
     JButton clockInButton, clockOutButton, backButton, saveButton;
     Container c;
     JPanel formPanel, buttonPanel;
@@ -20,14 +19,14 @@ public class AttendanceUI extends JFrame {
         c = this. getContentPane();
         c.setLayout(new BorderLayout());
 
-        firstNameLabel = new JLabel("First Name: ");
-        lastNameLabel = new JLabel("Last Name: ");
+        employeeIdLabel = new JLabel("Employee ID: ");
+        nameLabel = new JLabel("Name: ");
         dateLabel = new JLabel("Date Today: ");
         clockInLabel = new JLabel("Clock In: ");
         clockOutLabel = new JLabel("Clock Out: ");
 
-        firstNameField = new JTextField(15);
-        lastNameField = new JTextField(15);
+        employeeIdField = new JTextField(15);
+        nameField = new JTextField(15);
         dateField = new JTextField(10);
         clockInField = new JTextField(10);
         clockOutField = new JTextField(10);
@@ -46,10 +45,10 @@ public class AttendanceUI extends JFrame {
 
         formPanel = new JPanel(new GridLayout(5, 2, 10, 10));
         formPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        formPanel.add(firstNameLabel);
-        formPanel.add(firstNameField);
-        formPanel.add(lastNameLabel);
-        formPanel.add(lastNameField);
+        formPanel.add(employeeIdLabel);
+        formPanel.add(employeeIdField);
+        formPanel.add(nameLabel);
+        formPanel.add(nameField);
         formPanel.add(dateLabel);
         formPanel.add(dateField);
         formPanel.add(clockInLabel);
@@ -98,14 +97,14 @@ public class AttendanceUI extends JFrame {
                     long milliseconds = clockOutTime.getTime() - clockInTime.getTime();
                     double hoursWorked = milliseconds / (1000.0 * 60 * 60);
 
-                    String firstName = firstNameField.getText().trim();
-                    String lastName = lastNameField.getText().trim();
+                    String firstName = employeeIdField.getText().trim();
+                    String lastName = nameField.getText().trim();
 
                     Employee matchedEmployee = null;
 
                     for(Employee emp : employees){
-                        if(emp.getFirstName().equalsIgnoreCase(firstName)
-                        && emp.getLastName().equalsIgnoreCase(lastName)){
+                        if(emp.getEmployeeId().equalsIgnoreCase(firstName)
+                        && emp.getName().equalsIgnoreCase(lastName)){
                             matchedEmployee = emp;
                             break;
                         }
@@ -117,7 +116,7 @@ public class AttendanceUI extends JFrame {
 
                         JOptionPane.showMessageDialog(AttendanceUI.this,
                                 "Clocked out. Hours worked: " + String.format("%.4f", hoursWorked)+
-                                "\nTotal hours for " + matchedEmployee.getFirstName() + matchedEmployee.getLastName() +
+                                "\nTotal hours for " + matchedEmployee.getEmployeeId() + matchedEmployee.getName() +
                                 ": " + String.format("%.4f", totalHours));
                     }else{
                         JOptionPane.showMessageDialog(AttendanceUI.this,

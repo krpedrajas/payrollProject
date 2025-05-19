@@ -1,10 +1,12 @@
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 
+//maybe use payroll page table for history of wage payments?
+//might not use table for payroll page anymore (not final do not delete)
 public class PayrollTableModel extends AbstractTableModel {
 
     ArrayList<Employee> employees;
-    String [] columns = {"Name", "Position", "Gross Salary", "Net Salary", "Total Deductions", "Work Hours"};
+    String [] columns = {"Name", "Position", "Gross Salary", "Total Deductions", "Net Salary", "Work Hours"};
 
     public PayrollTableModel (){
         employees = new ArrayList<>();
@@ -47,17 +49,17 @@ public class PayrollTableModel extends AbstractTableModel {
 
         switch (columnIndex){
             case 0:
-                return e.getFirstName() + " " + e.getLastName();
+                return e.getEmployeeId();
             case 1:
-                return e.getPosition();
+                return e.getName();
             case 2:
-                return e.getGrossPay();
+                return e.getHoursAttended();
             case 3:
-                return e.getNetPay();
+                return e.getGrossPay();
             case 4:
                 return e.getDeductions();
             case 5:
-                return e.getHoursAttended();
+                return e.getNetPay();
         }
         return null;
     }

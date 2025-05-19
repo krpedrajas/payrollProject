@@ -3,9 +3,9 @@ import java.awt.*;
 
 public class PayrollUI extends JFrame {
 
-    JLabel firstName, lastName, position, grossSalary, netSalary, deductions, workHours;
-    JTextField firstNameField, lastNameField, positionField, gorssSalaryField, netSalaryField,deductionsField,workHoursField;
-    JButton nextB,backB,saveB;
+    JLabel employeeIdLabel, nameLabel, positionLabel, grossSalaryLabel, netSalaryLabel, deductionsLabel, workHoursLabel;
+    JTextField employeeIdField, nameField, positionField, grossSalaryField, netSalaryField,deductionsField,workHoursField;
+    JButton backB, confirmWagePaymentB;
     Container c;
     PayrollTableModel model;
     JTable table;
@@ -20,22 +20,22 @@ public class PayrollUI extends JFrame {
         layout = new BorderLayout();
         c.setLayout(layout);
 
-        firstName = new JLabel("First Name:");
-        lastName = new JLabel("Last Name:");
-        position = new JLabel("Position:");
-        grossSalary = new JLabel("Gross Salary:");
-        netSalary = new JLabel("Net Salary:");
-        deductions = new JLabel("Deductions:");
-        workHours = new JLabel("Work Hours:");
+        employeeIdLabel = new JLabel("Employee ID:");
+        nameLabel = new JLabel("Name:");
+        positionLabel = new JLabel("Position:");
+        grossSalaryLabel = new JLabel("Gross Salary:");
+        netSalaryLabel = new JLabel("Net Salary:");
+        deductionsLabel = new JLabel("Deductions:");
+        workHoursLabel = new JLabel("Work Hours:");
 
-        firstNameField = new JTextField(15);
-        firstNameField.setText(selectedEmployee.getFirstName());
-        lastNameField = new JTextField(15);
-        lastNameField.setText(selectedEmployee.getLastName());
+        employeeIdField = new JTextField(15);
+        employeeIdField.setText(selectedEmployee.getEmployeeId());
+        nameField = new JTextField(15);
+        nameField.setText(selectedEmployee.getName());
         positionField = new JTextField(15);
         positionField.setText(selectedEmployee.getPosition());
-        gorssSalaryField = new JTextField(10);
-        gorssSalaryField.setText(String.format("%.2f", selectedEmployee.getGrossPay()));
+        grossSalaryField = new JTextField(10);
+        grossSalaryField.setText(String.format("%.2f", selectedEmployee.getGrossPay()));
         netSalaryField = new JTextField(10);
         netSalaryField.setText(String.format("%.2f", selectedEmployee.getNetPay()));
         deductionsField = new JTextField(10);
@@ -43,48 +43,53 @@ public class PayrollUI extends JFrame {
         workHoursField = new JTextField(10);
         workHoursField.setText(String.format("%.2f", selectedEmployee.getHoursAttended()));
 
-        gorssSalaryField.setEditable(false);
+
+        employeeIdField.setEditable(false);
+        nameField.setEditable(false);
+        positionField.setEditable(false);
+        workHoursField.setEditable(false);
+        grossSalaryField.setEditable(false);
         netSalaryField.setEditable(false);
         deductionsField.setEditable(false);
 
-        nextB = new JButton("Next");
         backB = new JButton("Back");
-        saveB = new JButton("Save");
+        confirmWagePaymentB = new JButton("Confirm Wage Payment");
 
         formPanel = new JPanel(new GridLayout(7, 2, 10 ,10));
         formPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        formPanel.add(firstName);
-        formPanel.add(firstNameField);
-        formPanel.add(lastName);
-        formPanel.add(lastNameField);
-        formPanel.add(position);
+        formPanel.add(employeeIdLabel);
+        formPanel.add(employeeIdField);
+        formPanel.add(nameLabel);
+        formPanel.add(nameField);
+        formPanel.add(positionLabel);
         formPanel.add(positionField);
-        formPanel.add(workHours);
+        formPanel.add(workHoursLabel);
         formPanel.add(workHoursField);
-        formPanel.add(grossSalary);
-        formPanel.add(gorssSalaryField);
-        formPanel.add(deductions);
+        formPanel.add(grossSalaryLabel);
+        formPanel.add(grossSalaryField);
+        formPanel.add(deductionsLabel);
         formPanel.add(deductionsField);
-        formPanel.add(netSalary);
+        formPanel.add(netSalaryLabel);
         formPanel.add(netSalaryField);
 
         buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
         buttonPanel.add(backB);
-        buttonPanel.add(saveB);
-        buttonPanel.add(nextB);
+        buttonPanel.add(confirmWagePaymentB);
 
-        model = new PayrollTableModel();
-        table = new JTable(model);
-        scrollPane = new JScrollPane(table);
+        //might not use table for payroll page anymore (not final do not delete)
 
+//        model = new PayrollTableModel();
+//        table = new JTable(model);
+//        scrollPane = new JScrollPane(table);
+//
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new BorderLayout());
         topPanel.add(formPanel, BorderLayout.CENTER);
         topPanel.add(buttonPanel, BorderLayout.SOUTH);
 
         c.add(topPanel, BorderLayout.NORTH);
-        c.add(scrollPane, BorderLayout.CENTER);
+//        c.add(scrollPane, BorderLayout.CENTER);
 
         this.setVisible(true);
         this.setTitle("Payroll");

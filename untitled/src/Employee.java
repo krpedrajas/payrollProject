@@ -1,5 +1,3 @@
-import java.util.List;
-
 public class Employee {
 
     // **Employee Management**
@@ -8,7 +6,7 @@ public class Employee {
     //   - Store personal information, employment details, and salary information.
     //   - Track employee attendance and leaves.
 
-    private String firstName, lastName, position;
+    private String employeeId, name, position;
     private double hourlyRate;
     private double hoursAttended;
     private double deductions;
@@ -21,15 +19,15 @@ public class Employee {
 
 
 
-    public Employee(String firstName, String lastName, String position, double salary){
-        this.firstName=firstName;
-        this.lastName=lastName;
+    public Employee(String employeeId, String name, String position, double salary){
+        this.employeeId = employeeId;
+        this.name = name;
         this.position=position;
         this.hourlyRate =salary;
     }
-    public Employee(String firstName, String lastName, String position, double salary, double hoursAttended){
-        this.firstName=firstName;
-        this.lastName=lastName;
+    public Employee(String employeeId, String name, String position, double salary, double hoursAttended){
+        this.employeeId = employeeId;
+        this.name = name;
         this.position=position;
         this.hourlyRate =salary;
         this.hoursAttended = (int)hoursAttended;
@@ -43,20 +41,20 @@ public class Employee {
         this.netPay = grossPay - deductions;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getEmployeeId() {
+        return employeeId;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setEmployeeId(String employeeId) {
+        this.employeeId = employeeId;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getName() {
+        return name;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPosition() {
