@@ -85,7 +85,7 @@ public class EmployeeUI extends JFrame implements ActionListener {
                     PayrollUI payrollUI = new PayrollUI(selectedEmployee);
                     payrollUI.setVisible(true);
 
-                    EmployeeUI.this.dispose();
+//                    EmployeeUI.this.dispose();
                 } else {
                     JOptionPane.showMessageDialog(EmployeeUI.this, "Please select an employee", "Warning" , JOptionPane.WARNING_MESSAGE);
                 }

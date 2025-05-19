@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Employee {
 
     // **Employee Management**
@@ -16,6 +18,7 @@ public class Employee {
     private double pagIbig;
     private double withHoldingTax;
     private double netPay;
+    private ArrayList<String> clockLog; //either based on month only or month and day
 
 
 
@@ -24,21 +27,7 @@ public class Employee {
         this.name = name;
         this.position=position;
         this.hourlyRate =salary;
-    }
-    public Employee(String employeeId, String name, String position, double salary, double hoursAttended){
-        this.employeeId = employeeId;
-        this.name = name;
-        this.position=position;
-        this.hourlyRate =salary;
-        this.hoursAttended = (int)hoursAttended;
-
-        this.grossPay = hourlyRate * this.hoursAttended;
-        this.SSS = computeSSS(grossPay,salaryCap);
-        this.pagIbig = computePagibig(grossPay);
-        this.withHoldingTax = computeWithholdingTax(grossPay);
-
-        this.deductions = SSS + pagIbig + withHoldingTax;
-        this.netPay = grossPay - deductions;
+        this.clockLog=new ArrayList<>();
     }
 
     public String getEmployeeId() {
@@ -79,6 +68,13 @@ public class Employee {
 
     public void setHoursAttended(double hoursAttended) {
         this.hoursAttended = hoursAttended;
+
+        this.grossPay = hourlyRate * this.hoursAttended;
+        this.SSS = computeSSS(grossPay,salaryCap);
+        this.pagIbig = computePagibig(grossPay);
+        this.withHoldingTax = computeWithholdingTax(grossPay);
+        this.deductions = SSS + pagIbig + withHoldingTax;
+        this.netPay = grossPay - deductions;
     }
 
 
