@@ -137,6 +137,12 @@ public class AttendanceUI extends JFrame {
         });
     }
 
+    public static void main(String[] args) {
+        Employee e = new Employee("kenny", "Ped", "molester", 2000, 8);
+        List<Employee> employees1 = new ArrayList<>();
+        employees1.add(e);
+        AttendanceUI uyi = new AttendanceUI(employees1);
+    }
 
 
 }
