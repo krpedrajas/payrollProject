@@ -105,6 +105,11 @@ public class AttendanceUI extends JFrame {
                             "Employee not found", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
+                //check if time inputted is 24:00 (clock in only allows until 23:59)
+                if(timeField.getText().equals("24:00")){
+                    JOptionPane.showMessageDialog(AttendanceUI.this, "Please enter a valid clock in time.", "Invalid Clock In Time", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
 
                 //time fields to SimpleDateFormat
                 Date clockInTime = null;
