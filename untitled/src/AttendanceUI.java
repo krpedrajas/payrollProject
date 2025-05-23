@@ -117,9 +117,10 @@ public class AttendanceUI extends JFrame {
                 }
                 clockInField.setText(timeField.getText());
 
-                //enable clock out, disable clock in
+                //enable clock out, disable clock in and back
                 clockOutButton.setEnabled(true);
                 clockInButton.setEnabled(false);
+                backButton.setEnabled(false);
 
                 //disable employeeId and date fields
                 employeeIdField.setEditable(false);
@@ -138,6 +139,10 @@ public class AttendanceUI extends JFrame {
                     SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
                     clockInTime = sdf.parse(clockInField.getText());
                     clockOutTime = sdf.parse(timeField.getText());
+                    if(clockOutTime.before(clockInTime)){
+                        JOptionPane.showMessageDialog(AttendanceUI.this, "Please enter a valid clock out time.", "Invalid Clock Out Time", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(AttendanceUI.this, "Please enter a valid clock out time.", "Invalid Clock Out Time", JOptionPane.ERROR_MESSAGE);
                     return;
@@ -210,7 +215,9 @@ public class AttendanceUI extends JFrame {
 
     public static void main(String[] args) {
         ArrayList<Employee> employees=new ArrayList<>();
-        employees.add(new Employee("1", "Kenneth Pedrajas", "Engineer", 500));
+        employees.add(new Employee("1", "Kenneth Pedrajas", "DJ", 500));
+        employees.add(new Employee("2", "Ruan Justiniani", "Software Engineer", 350));
+        employees.add(new Employee("3", "Jujin Ferrer", "Software Developer", 350));
         AttendanceUI attendanceUI=new AttendanceUI(employees);
     }
 
