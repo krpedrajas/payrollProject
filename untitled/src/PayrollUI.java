@@ -111,7 +111,7 @@ public class PayrollUI extends JFrame{
                 PayrollUI.this.dispose();
             }
         });
-    }git 
+    }
 
     public static void main(String[] args) {
 
