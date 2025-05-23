@@ -16,6 +16,9 @@ public class AttendanceUI extends JFrame {
     Container c;
     JPanel formPanel, timePanel, buttonPanel, topPanel;
     JTextArea historyArea;
+
+
+
     // create attendance history
 
     // 1 - kennyPedrajas - Date - Time in

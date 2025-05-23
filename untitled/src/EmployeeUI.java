@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -108,9 +109,25 @@ public class EmployeeUI extends JFrame{
         });
 
         addButton.addActionListener(new ActionListener() {
+
+            //check unique employeeID
             @Override
             public void actionPerformed(ActionEvent e) {
                 String employeeId= employeeIdField.getText();
+                boolean isFound = false;
+                for (Employee employee : employees){
+                    if(employee.getEmployeeId().equalsIgnoreCase(employeeId)){
+                        isFound = true;
+                        break;
+                    }
+                }
+
+                if(isFound){
+                    JOptionPane.showMessageDialog(EmployeeUI.this, "ID already exists.", "Invalid ID", JOptionPane.ERROR_MESSAGE);
+                    employeeIdField.setText("");
+                    return;
+                }
+
                 String name= nameField.getText();
                 String position=positionField.getText();
                 String salary= hourlyRateField.getText();
