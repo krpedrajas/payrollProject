@@ -76,7 +76,6 @@ public class AttendanceUI extends JFrame {
 
         this.setTitle("AttendanceUI");
         this.pack();
-        this.setSize(500,300);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setVisible(true);
@@ -172,7 +171,6 @@ public class AttendanceUI extends JFrame {
                 }
 
                 //add hours worked to employee's total hours
-
                 double totalHours = matchedEmployee.getHoursAttended() + hoursWorked;
                 matchedEmployee.setHoursAttended(totalHours);
                 JOptionPane.showMessageDialog(AttendanceUI.this,
@@ -180,13 +178,13 @@ public class AttendanceUI extends JFrame {
                                 "\nHours worked: " + String.format("%.4f", hoursWorked) +
                                 "\nTotal hours for " + matchedEmployee.getName() + ": " + String.format("%.4f", totalHours));
 
-                //disable clock out, enable clock in
+                //disable clock out, enable clock in and back
                 clockOutButton.setEnabled(false);
                 clockInButton.setEnabled(true);
+                backButton.setEnabled(true);
 
                 //clear all fields (except date)
                 employeeIdField.setText("");
-//                    dateField.setText("");
                 clockInField.setText("");
                 clockOutField.setText("");
                 timeField.setText("");
@@ -194,15 +192,12 @@ public class AttendanceUI extends JFrame {
                 //enable employeeId and date field
                 employeeIdField.setEditable(true);
                 dateField.setEditable(true);
-
-//                } catch (Exception ex) {
-//                    JOptionPane.showMessageDialog(AttendanceUI.this, "Please enter a valid clock out time.", "Invalid Clock Out Time", JOptionPane.ERROR_MESSAGE);
-//                }
             }
         });
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                MainUi mainUi=new MainUi(employees);
                 AttendanceUI.this.dispose();
             }
         });

@@ -3,6 +3,7 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class MainUi extends JFrame {
 
@@ -11,7 +12,7 @@ public class MainUi extends JFrame {
     Container container;
     GridBagLayout layout;
 
-    public MainUi(){
+    public MainUi(ArrayList<Employee> employees){
         container=this.getContentPane();
         layout=new GridBagLayout();
         container.setLayout(layout);
@@ -38,19 +39,19 @@ public class MainUi extends JFrame {
         addToContainer(button3,0,3);
         addToContainer(bwahaha,0,4);
 
-//        button1.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                AttendanceUI attendanceUI = new AttendanceUI();
-//                attendanceUI.setVisible(true);
-//                MainUi.this.dispose();
-//            }
-//        });
+        button1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AttendanceUI attendanceUI = new AttendanceUI(employees);
+                attendanceUI.setVisible(true);
+                MainUi.this.dispose();
+            }
+        });
 
         button2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                EmployeeUI employeeUI = new EmployeeUI();
+                EmployeeUI employeeUI = new EmployeeUI(employees);
                 employeeUI.setVisible(true);
                 MainUi.this.dispose();
             }
@@ -59,6 +60,7 @@ public class MainUi extends JFrame {
 
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.pack();
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
 
