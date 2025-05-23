@@ -130,6 +130,9 @@ public class AttendanceUI extends JFrame {
                 //disable employeeId and date fields
                 employeeIdField.setEditable(false);
                 dateField.setEditable(false);
+
+                //clear time field
+                timeField.setText("");
             }
         });
 
@@ -215,6 +218,13 @@ public class AttendanceUI extends JFrame {
 
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(date);
+        return matcher.matches();
+    }
+
+    private boolean isValidTime(String time) {
+        String regex = "^([01][0-9]|2[0-3]):([0-5][0-9])$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(time);
         return matcher.matches();
     }
 

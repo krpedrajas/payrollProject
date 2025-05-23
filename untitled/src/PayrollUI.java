@@ -6,12 +6,14 @@ import java.awt.event.ActionListener;
 public class PayrollUI extends JFrame{
 
     JLabel employeeIdLabel, nameLabel, positionLabel, grossSalaryLabel, netSalaryLabel, deductionsLabel, workHoursLabel, hourlyRateLabel;
+    JLabel philHealthLabel, pagIbigLabel, sssLabel, taxLabel;
     JTextField employeeIdField, nameField, positionField, grossSalaryField, netSalaryField,deductionsField,workHoursField, hourlyRateField;
+    JTextField philHealthField, pagIbigField, sssField, taxField;
     JButton backB;
     Container c;
     PayrollTableModel model;
     JTable table;
-    JPanel formPanel,buttonPanel;
+    JPanel formPanel,buttonPanel, deductionsPanel;
     JScrollPane scrollPane;
     BorderLayout layout;
 
@@ -83,26 +85,50 @@ public class PayrollUI extends JFrame{
         buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
         buttonPanel.add(backB);
 
-        //might not use table for payroll page anymore (not final do not delete)
+        deductionsPanel = new JPanel(new GridLayout(4, 2, 10 ,10));
+        deductionsPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-//        model = new PayrollTableModel();
-//        table = new JTable(model);
-//        scrollPane = new JScrollPane(table);
-//
+        philHealthLabel=new JLabel("PhilHealth:");
+        pagIbigLabel=new JLabel("Pag-ibig:");
+        sssLabel=new JLabel("SSS:");
+        taxLabel=new JLabel("Withholding Tax:");
+
+        philHealthField=new JTextField(15);
+        pagIbigField=new JTextField(15);
+        sssField=new JTextField(15);
+        taxField=new JTextField(15);
+
+        philHealthField.setText(String.format("%.2f", selectedEmployee.getPhilHealth()));
+        philHealthField.setEditable(false);
+        pagIbigField.setText(String.format("%.2f", selectedEmployee.getPagIbig()));
+        pagIbigField.setEditable(false);
+        sssField.setText(String.format("%.2f", selectedEmployee.getSSS()));
+        sssField.setEditable(false);
+        taxField.setText(String.format("%.2f", selectedEmployee.getWithHoldingTax()));
+        taxField.setEditable(false);
+
+        deductionsPanel.add(philHealthLabel);
+        deductionsPanel.add(philHealthField);
+        deductionsPanel.add(pagIbigLabel);
+        deductionsPanel.add(pagIbigField);
+        deductionsPanel.add(sssLabel);
+        deductionsPanel.add(sssField);
+        deductionsPanel.add(taxLabel);
+        deductionsPanel.add(taxField);
+
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new BorderLayout());
-        topPanel.add(formPanel, BorderLayout.CENTER);
-        topPanel.add(buttonPanel, BorderLayout.SOUTH);
+        topPanel.add(formPanel, BorderLayout.NORTH);
+        topPanel.add(buttonPanel, BorderLayout.CENTER);
+        topPanel.add(deductionsPanel, BorderLayout.SOUTH);
 
         c.add(topPanel, BorderLayout.NORTH);
-//        c.add(scrollPane, BorderLayout.CENTER);
 
         this.setVisible(true);
         this.setTitle("Payroll");
         this.pack();
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-//        this.setSize(800, 600);
         this.setLocationRelativeTo(null);
 
         backB.addActionListener(new ActionListener() {
