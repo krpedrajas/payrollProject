@@ -135,6 +135,7 @@ public class EmployeeUI extends JFrame{
                 if(table.getSelectedRow()==-1){
                     JOptionPane.showMessageDialog(EmployeeUI.this, "Please select an employee", "NO EMPLOYEE SELECTED" , JOptionPane.WARNING_MESSAGE);
                 }else {
+                    //need to update employee arraylist
                     tableModel.deleteFromTable(table.getSelectedRows());
                     employeeIdField.setText("");
                     nameField.setText("");
@@ -146,6 +147,7 @@ public class EmployeeUI extends JFrame{
         updateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //need to update employee arraylist
                 String employeeId= employeeIdField.getText();
                 String name= nameField.getText();
                 String position=positionField.getText();

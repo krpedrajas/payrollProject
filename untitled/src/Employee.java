@@ -12,14 +12,13 @@ public class Employee {
     private double hourlyRate;
     private double hoursAttended;
     private double deductions;
-    private double salaryCap;
     private double grossPay;
     private double SSS;
+    private double employerSSS;
     private double pagIbig;
     private double philHealth;
     private double withHoldingTax;
     private double netPay;
-    private ArrayList<String> clockLog; //either based on month only or month and day
 
 
 
@@ -28,7 +27,6 @@ public class Employee {
         this.name = name;
         this.position=position;
         this.hourlyRate =salary;
-        this.clockLog=new ArrayList<>();
     }
 
     public String getEmployeeId() {
@@ -71,7 +69,7 @@ public class Employee {
         this.hoursAttended = hoursAttended;
 
         this.grossPay = hourlyRate * this.hoursAttended;
-        this.SSS = computeSSS(grossPay,salaryCap);
+        this.SSS = computeSSS(grossPay);
         this.philHealth=computePhilhealth(grossPay);
         this.pagIbig = computePagibig(grossPay);
         this.withHoldingTax = computeWithholdingTax(grossPay);
@@ -100,11 +98,46 @@ public class Employee {
         System.out.println("Pagibig: "+Math.round(pagibig * 100.0) / 100.0);
         return Math.round(pagibig * 100.0) / 100.0;
     }
-    public double computeSSS(double monthlyIncome, double salaryCap) {
-        double msc = Math.min(monthlyIncome, 30000); // Cap at ₱30,000
-        double employeeShare = msc * 0.045;          // 4.5% of MSC
-        System.out.println("SSS: "+Math.round(employeeShare * 100.0) / 100.0);
-        return Math.round(employeeShare * 100.0) / 100.0;
+    public double computeSSS(double grossPay) {
+//        double msc = Math.min(monthlyIncome, 30000); // Cap at ₱30,000
+//        double employeeShare = msc * 0.045;          // 4.5% of MSC
+//        System.out.println("SSS: "+Math.round(employeeShare * 100.0) / 100.0);
+//        return Math.round(employeeShare * 100.0) / 100.0;
+        double msc;
+        double employerSS;
+        double ec;
+        double employeeSS;
+
+        //get msc
+        if(grossPay<5250){
+            msc=5000;
+            System.out.println("MSC: "+msc);
+        }else if (grossPay>=34750){
+            msc=35000;
+            System.out.println("MSC: "+msc);
+        }else{
+            //round to nearest multiple of 500
+            msc=Math.round(grossPay/500.0)*500;
+            System.out.println("MSC: "+msc);
+        }
+
+        //get ec (for employer)
+        if(msc<=14500){
+            ec=10;
+        }else{
+            ec=30;
+        }
+
+        //ss employee (5% of msc)
+        employeeSS=msc*0.05;
+        System.out.println("Employee SSS: "+employeeSS);
+
+        //ss employer (10% of msc + ec)
+        this.employerSSS=msc*0.10+ec;
+        System.out.println("Employer SSS: "+this.employerSSS);
+
+        System.out.println("Total SSS: "+(employeeSS+this.employerSSS));
+        return employeeSS;
     }
 
     public double computeWithholdingTax(double monthlyIncome) {
@@ -140,14 +173,6 @@ public class Employee {
         }
         System.out.println("Tax: "+Math.round(tax * 100.0) / 100.0);
         return Math.round(tax * 100.0) / 100.0;
-    }
-
-    public double getSalaryCap() {
-        return salaryCap;
-    }
-
-    public void setSalaryCap(double salaryCap) {
-        this.salaryCap = salaryCap;
     }
 
     public double getDeductions() {
