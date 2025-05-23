@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class EmployeeTableModel extends AbstractTableModel {
 
     ArrayList<Employee> employees;
-    String[] columns ={"Name", "Position", "Salary"};
+    String[] columns ={"Employee ID", "Name", "Position", "Salary"};
 
 
     public EmployeeTableModel(){
@@ -28,12 +28,12 @@ public class EmployeeTableModel extends AbstractTableModel {
         this.fireTableDataChanged();
     }
 
-    public void editSelectedRow(int index, String firstName, String lastName, String position, String salary){
-        if(!firstName.isEmpty()){
-            employees.get(index).setFirstName(firstName);
+    public void editSelectedRow(int index, String employeeId, String name, String position, String salary){
+        if(!employeeId.isEmpty()){
+            employees.get(index).setEmployeeId(employeeId);
         }
-        if(!lastName.isEmpty()){
-            employees.get(index).setLastName(lastName);
+        if(!name.isEmpty()){
+            employees.get(index).setName(name);
         }
         if(!position.isEmpty()){
             employees.get(index).setPosition(position);
@@ -64,8 +64,10 @@ public class EmployeeTableModel extends AbstractTableModel {
     public Object getValueAt(int rowIndex, int columnIndex) {
         Employee employee = employees.get(rowIndex);
         if(columnIndex==0){
-            return employee.getFirstName()+" "+employee.getLastName();
-        }else if(columnIndex==1){
+            return employee.getEmployeeId();
+        }else if(columnIndex==1) {
+            return employee.getName();
+        }else if(columnIndex==2){
             return employee.getPosition();
         }else{
             return employee.getHourlyRate();

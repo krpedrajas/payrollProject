@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 // **Employee Management**
 //
@@ -9,18 +10,18 @@ import java.awt.event.ActionListener;
 //   - Store personal information, employment details, and salary information.
 //   - Track employee attendance and leaves. (might have to make separate UI to show attendance records/history)
 
-public class EmployeeUI extends JFrame implements ActionListener {
+public class EmployeeUI extends JFrame{
 
     JTable table;
     EmployeeTableModel tableModel;
-    JButton addButton, deleteButton, updateButton, toPayRollButton;
-    JTextField firstNameField, lastNameField, positionField, salaryField;
-    JLabel firstNameLabel, lastNameLabel, positionLabel, salaryLabel;
+    JButton addButton, deleteButton, updateButton, toPayRollButton, backButton;
+    JTextField employeeIdField, nameField, positionField, hourlyRateField;
+    JLabel employeeIdLabel, nameLabel, positionLabel, hourlyRateLabel;
     JPanel infoPanel, buttonsPanel;
     Container container;
     BorderLayout layout;
 
-    public EmployeeUI(String title){
+    public EmployeeUI(ArrayList<Employee> employees){
         container=this.getContentPane();
         layout=new BorderLayout();
         container.setLayout(layout);
@@ -28,35 +29,37 @@ public class EmployeeUI extends JFrame implements ActionListener {
 
         infoPanel=new JPanel(new GridBagLayout());
 
-        firstNameLabel=new JLabel("First Name:");
-        firstNameField=new JTextField(10);
-        addToPanel(firstNameLabel, 0,0,1);
-        addToPanel(firstNameField, 1,0,1);
-        lastNameLabel=new JLabel("Last Name:");
-        lastNameField=new JTextField(10);
-        addToPanel(lastNameLabel, 2,0,1);
-        addToPanel(lastNameField, 3,0,1);
+        employeeIdLabel =new JLabel("Employee ID:");
+        employeeIdField =new JTextField(10);
+        addToPanel(employeeIdLabel, 0,0,1);
+        addToPanel(employeeIdField, 1,0,1);
+        nameLabel =new JLabel("Name:");
+        nameField =new JTextField(10);
+        addToPanel(nameLabel, 2,0,1);
+        addToPanel(nameField, 3,0,1);
         positionLabel=new JLabel("Position:");
         positionField=new JTextField(10);
         addToPanel(positionLabel, 0,1,1);
         addToPanel(positionField, 1,1,1);
-        salaryLabel=new JLabel("Salary:");
-        salaryField=new JTextField(10);
-        addToPanel(salaryLabel, 2,1,1);
-        addToPanel(salaryField, 3,1,1);
+        hourlyRateLabel =new JLabel("Hourly Rate:");
+        hourlyRateField =new JTextField(10);
+        addToPanel(hourlyRateLabel, 2,1,1);
+        addToPanel(hourlyRateField, 3,1,1);
 
         container.add(infoPanel, BorderLayout.NORTH);
 
         buttonsPanel=new JPanel(new FlowLayout());
 
+        backButton=new JButton("BACK");
+        buttonsPanel.add(backButton);
         addButton=new JButton("ADD");
-        addButton.addActionListener(this);
+//        addButton.addActionListener(this);
         buttonsPanel.add(addButton);
         deleteButton=new JButton("DELETE");
-        deleteButton.addActionListener(this);
+//        deleteButton.addActionListener(this);
         buttonsPanel.add(deleteButton);
         updateButton=new JButton("UPDATE");
-        updateButton.addActionListener(this);
+//        updateButton.addActionListener(this);
         buttonsPanel.add(updateButton);
         toPayRollButton=new JButton("TO PAYROLL");
         buttonsPanel.add(toPayRollButton);
@@ -69,8 +72,13 @@ public class EmployeeUI extends JFrame implements ActionListener {
         JScrollPane scrollPane=new JScrollPane(table);
         container.add(scrollPane, BorderLayout.SOUTH);
 
+        //add existing employees to table
+        for (Employee employee: employees){
+            tableModel.addToTable(employee);
+        }
+
         this.setVisible(true);
-        this.setTitle("Employee Page");
+        this.setTitle("Employee Details");
         this.pack();
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -85,11 +93,75 @@ public class EmployeeUI extends JFrame implements ActionListener {
                     PayrollUI payrollUI = new PayrollUI(selectedEmployee);
                     payrollUI.setVisible(true);
 
-                    EmployeeUI.this.dispose();
                 } else {
-                    JOptionPane.showMessageDialog(EmployeeUI.this, "Please select an employee", "Warning" , JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(EmployeeUI.this, "Please select an employee", "NO EMPLOYEE SELECTED" , JOptionPane.WARNING_MESSAGE);
                 }
 
+            }
+        });
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MainUi mainUi=new MainUi(employees);
+                EmployeeUI.this.dispose();
+            }
+        });
+
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String employeeId= employeeIdField.getText();
+                String name= nameField.getText();
+                String position=positionField.getText();
+                String salary= hourlyRateField.getText();
+
+                if(employeeId.isEmpty()||name.isEmpty()||position.isEmpty()||salary.isEmpty()){
+                    JOptionPane.showMessageDialog(null, "Please fill in all fields.");
+                }else {
+                    double s=Double.parseDouble(salary);
+                    Employee employee=new Employee(employeeId, name, position, s);
+                    employees.add(employee);
+                    tableModel.addToTable(employee);
+                    employeeIdField.setText("");
+                    nameField.setText("");
+                    positionField.setText("");
+                    hourlyRateField.setText("");
+                }
+            }
+        });
+        deleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(table.getSelectedRow()==-1){
+                    JOptionPane.showMessageDialog(EmployeeUI.this, "Please select an employee", "NO EMPLOYEE SELECTED" , JOptionPane.WARNING_MESSAGE);
+                }else {
+                    //need to update employee arraylist
+                    tableModel.deleteFromTable(table.getSelectedRows());
+                    employeeIdField.setText("");
+                    nameField.setText("");
+                    positionField.setText("");
+                    hourlyRateField.setText("");
+                }
+            }
+        });
+        updateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //need to update employee arraylist
+                String employeeId= employeeIdField.getText();
+                String name= nameField.getText();
+                String position=positionField.getText();
+                String salary= hourlyRateField.getText();
+
+                if(table.getSelectedRow()==-1){
+                    JOptionPane.showMessageDialog(EmployeeUI.this, "Please select an employee", "NO EMPLOYEE SELECTED" , JOptionPane.WARNING_MESSAGE);
+                }else {
+                    tableModel.editSelectedRow(table.getSelectedRow(), employeeId, name, position, salary);
+                    employeeIdField.setText("");
+                    nameField.setText("");
+                    positionField.setText("");
+                    hourlyRateField.setText("");
+                }
             }
         });
     }
@@ -103,55 +175,13 @@ public class EmployeeUI extends JFrame implements ActionListener {
         infoPanel.add(component, gbc);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==addButton){
-            String firstName=firstNameField.getText();
-            String lastName=lastNameField.getText();
-            String position=positionField.getText();
-            String salary= salaryField.getText();
-            if(firstName.isEmpty()||lastName.isEmpty()||position.isEmpty()||salary.isEmpty()){
-                JOptionPane.showMessageDialog(null, "Please fill in all fields.");
-            }else {
-                double s=Double.parseDouble(salary);
-                tableModel.addToTable(new Employee(firstName, lastName, position, s));
-                firstNameField.setText("");
-                lastNameField.setText("");
-                positionField.setText("");
-                salaryField.setText("");
-            }
-        }else if (e.getSource()==deleteButton){
-            if(table.getSelectedRow()==-1){
-                JOptionPane.showMessageDialog(null, "No row was selected.");
-            }else {
-                tableModel.deleteFromTable(table.getSelectedRows());
-                firstNameField.setText("");
-                lastNameField.setText("");
-                positionField.setText("");
-                salaryField.setText("");
-            }
-        }else if(e.getSource()==updateButton){
-            String firstName=firstNameField.getText();
-            String lastName=lastNameField.getText();
-            String position=positionField.getText();
-            String salary= salaryField.getText();
-
-            if(table.getSelectedRow()==-1){
-                JOptionPane.showMessageDialog(null, "No row was selected.");
-            }else {
-                tableModel.editSelectedRow(table.getSelectedRow(), firstName, lastName, position, salary);
-                firstNameField.setText("");
-                lastNameField.setText("");
-                positionField.setText("");
-                salaryField.setText("");
-            }
-
-        }
-    }
-
-
     public static void main(String[] args) {
 
-        EmployeeUI ui=new EmployeeUI("Employee UI");
+        ArrayList<Employee> employees=new ArrayList<>();
+        employees.add(new Employee("1", "Kenneth Pedrajas", "DJ", 500));
+//        employees.add(new Employee("2", "Ruan Justiniani", "Software Engineer", 350));
+//        employees.add(new Employee("3", "Jujin Ferrer", "Software Developer", 350));
+
+        EmployeeUI ui=new EmployeeUI(employees);
     }
 }
