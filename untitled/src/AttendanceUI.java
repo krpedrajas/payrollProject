@@ -12,14 +12,15 @@ import java.util.regex.Pattern;
 public class AttendanceUI extends JFrame {
     JLabel employeeIdLabel, dateLabel, clockInLabel, clockOutLabel, timeLabel;
     JTextField employeeIdField, dateField, clockInField, clockOutField, timeField;
-    JButton clockInButton, clockOutButton, backButton;
+    JButton clockInButton, clockOutButton, backButton, leaveButton;
     Container c;
     JPanel formPanel, timePanel, buttonPanel, topPanel;
     JTextArea historyArea;
     // create attendance history
 
     // 1 - kennyPedrajas - Date - Time in
-    // 1 - KennyPedrajas - Date - Time Out
+    // 1 - KennyPedrajas - Date - LEAVE
+    //
 
     public AttendanceUI (ArrayList<Employee> employees){
 //        this.employees = employees;
@@ -72,10 +73,12 @@ public class AttendanceUI extends JFrame {
         clockOutButton = new JButton("Clock Out");
         clockOutButton.setEnabled(false);
         backButton = new JButton("Back");
+        leaveButton = new JButton("Record Leave");
         buttonPanel = new JPanel(new FlowLayout());
         buttonPanel.add(backButton);
         buttonPanel.add(clockInButton);
         buttonPanel.add(clockOutButton);
+        buttonPanel.add(leaveButton);
 
         topPanel = new JPanel();
 
@@ -148,6 +151,7 @@ public class AttendanceUI extends JFrame {
                 clockOutButton.setEnabled(true);
                 clockInButton.setEnabled(false);
                 backButton.setEnabled(false);
+                leaveButton.setEnabled(false);
 
                 //disable employeeId and date fields
                 employeeIdField.setEditable(false);
@@ -221,6 +225,7 @@ public class AttendanceUI extends JFrame {
                 clockOutButton.setEnabled(false);
                 clockInButton.setEnabled(true);
                 backButton.setEnabled(true);
+                leaveButton.setEnabled(true);
 
                 //clear all fields (except date)
                 employeeIdField.setText("");
@@ -236,6 +241,31 @@ public class AttendanceUI extends JFrame {
 
             }
         });
+
+        leaveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                String employeeId = employeeIdField.getText().trim();
+                Employee matchedEmployee = null;
+                for (Employee employee : employees) {
+                    if (employee.getEmployeeId().equals(employeeId)) {
+                        matchedEmployee = employee;
+                        break;
+                    }
+                }
+
+                String dateToday = dateField.getText();
+                String history = matchedEmployee.getEmployeeId() + " - " + matchedEmployee.getName() + " - " + dateToday + " - LEAVE";
+                matchedEmployee.addHistory(history);
+                System.out.println(matchedEmployee.getName());
+                historyArea.setText(matchedEmployee.getHistory());
+                employeeIdField.setText("");
+
+
+            }
+        });
+
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
