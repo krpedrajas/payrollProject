@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Employee {
 
     // **Employee Management**
@@ -14,8 +16,10 @@ public class Employee {
     private double grossPay;
     private double SSS;
     private double pagIbig;
+    private double philHealth;
     private double withHoldingTax;
     private double netPay;
+    private ArrayList<String> clockLog; //either based on month only or month and day
 
 
 
@@ -24,21 +28,7 @@ public class Employee {
         this.name = name;
         this.position=position;
         this.hourlyRate =salary;
-    }
-    public Employee(String employeeId, String name, String position, double salary, double hoursAttended){
-        this.employeeId = employeeId;
-        this.name = name;
-        this.position=position;
-        this.hourlyRate =salary;
-        this.hoursAttended = (int)hoursAttended;
-
-        this.grossPay = hourlyRate * this.hoursAttended;
-        this.SSS = computeSSS(grossPay,salaryCap);
-        this.pagIbig = computePagibig(grossPay);
-        this.withHoldingTax = computeWithholdingTax(grossPay);
-
-        this.deductions = SSS + pagIbig + withHoldingTax;
-        this.netPay = grossPay - deductions;
+        this.clockLog=new ArrayList<>();
     }
 
     public String getEmployeeId() {
@@ -79,39 +69,76 @@ public class Employee {
 
     public void setHoursAttended(double hoursAttended) {
         this.hoursAttended = hoursAttended;
+
+        this.grossPay = hourlyRate * this.hoursAttended;
+        this.SSS = computeSSS(grossPay,salaryCap);
+        this.philHealth=computePhilhealth(grossPay);
+        this.pagIbig = computePagibig(grossPay);
+        this.withHoldingTax = computeWithholdingTax(grossPay);
+        this.deductions = SSS + pagIbig + philHealth + withHoldingTax;
+        this.netPay = grossPay - deductions;
     }
 
 
 
     //deduction Functions
-    public static double computePagibig(double monthlyIncome) {
+    public double computePhilhealth(double grossPay){
+        double philhealth;
+        if(grossPay<10000){
+            philhealth=250;
+        }else if(grossPay>100000){
+            philhealth=2500;
+        }else{
+            philhealth=grossPay*0.025;
+        }
+        System.out.println("PhilHealth: "+Math.round(philhealth*100.0)/100.0);
+        return Math.round(philhealth*100.0)/100.0;
+    }
+    public double computePagibig(double monthlyIncome) {
         double contributionBase = Math.min(monthlyIncome, 5000); // Max base ₱5,000
         double pagibig = contributionBase * 0.02;                 // 2%
+        System.out.println("Pagibig: "+Math.round(pagibig * 100.0) / 100.0);
         return Math.round(pagibig * 100.0) / 100.0;
     }
-    public static double computeSSS(double monthlyIncome, double salaryCap) {
-        double msc = Math.min(monthlyIncome, salaryCap); // Cap at ₱30,000
+    public double computeSSS(double monthlyIncome, double salaryCap) {
+        double msc = Math.min(monthlyIncome, 30000); // Cap at ₱30,000
         double employeeShare = msc * 0.045;          // 4.5% of MSC
+        System.out.println("SSS: "+Math.round(employeeShare * 100.0) / 100.0);
         return Math.round(employeeShare * 100.0) / 100.0;
     }
 
-    public static double computeWithholdingTax(double monthlyIncome) {
+    public double computeWithholdingTax(double monthlyIncome) {
         double tax;
+
+        double nonTaxableContributions=this.getPhilHealth()+this.getPagIbig()+this.getSSS();
+        System.out.println("Non taxable contributions: "+nonTaxableContributions);
+        monthlyIncome-=nonTaxableContributions;
+        System.out.println("Taxable Income: "+monthlyIncome);
 
         if (monthlyIncome <= 20833) {
             tax = 0;
         } else if (monthlyIncome <= 33332) {
-            tax = (monthlyIncome - 20833) * 0.20;
+//            tax = (monthlyIncome - 20833) * 0.20;
+            double taxableIncome=monthlyIncome-20833;
+            tax=taxableIncome*0.15;
         } else if (monthlyIncome <= 66666) {
-            tax = 2500 + (monthlyIncome - 33333) * 0.25;
+//            tax = 2500 + (monthlyIncome - 33333) * 0.25;
+            double taxableIncome=monthlyIncome-33333;
+            tax=1875+taxableIncome*0.20;
         } else if (monthlyIncome <= 166666) {
-            tax = 10833 + (monthlyIncome - 66667) * 0.30;
+//            tax = 10833 + (monthlyIncome - 66667) * 0.30;
+            double taxableIncome=monthlyIncome-66667;
+            tax=8541.80+taxableIncome*0.25;
         } else if (monthlyIncome <= 666666) {
-            tax = 40833 + (monthlyIncome - 166667) * 0.32;
+//            tax = 40833 + (monthlyIncome - 166667) * 0.32;
+            double taxableIncome=monthlyIncome-166667;
+            tax=33541.80+taxableIncome*0.30;
         } else {
-            tax = 200833 + (monthlyIncome - 666667) * 0.35;
+//            tax = 200833 + (monthlyIncome - 666667) * 0.35;
+            double taxableIncome=monthlyIncome-666667;
+            tax=183541.80+taxableIncome*0.35;
         }
-
+        System.out.println("Tax: "+Math.round(tax * 100.0) / 100.0);
         return Math.round(tax * 100.0) / 100.0;
     }
 
@@ -137,6 +164,14 @@ public class Employee {
 
     public void setGrossPay(double grossPay) {
         this.grossPay = grossPay;
+    }
+
+    public double getPhilHealth() {
+        return philHealth;
+    }
+
+    public void setPhilHealth(double philHealth) {
+        this.philHealth = philHealth;
     }
 
     public double getSSS() {
