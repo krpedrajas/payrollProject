@@ -5,9 +5,9 @@ import java.awt.event.ActionListener;
 
 public class ReportsUI extends JFrame {
 
-    private JButton sssButton, pagIbigButton, philHealthButton, birButton, yearEndTaxButton;
-    private JTextArea outputArea;
-    private Container c;
+    JButton sssButton, pagIbigButton, philHealthButton, birButton, yearEndTaxButton;
+    JTextArea outputArea;
+    Container c;
     public ReportsUI () {
         c = this.getContentPane();
         c.setLayout(new BorderLayout());
