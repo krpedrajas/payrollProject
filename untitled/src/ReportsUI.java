@@ -34,20 +34,22 @@ public class ReportsUI extends JFrame {
         JPanel centerWrapper = new JPanel(new GridBagLayout());
         centerWrapper.add(buttonPanel);
 
+        c.add(centerWrapper, BorderLayout.NORTH);
 
-        outputArea = new JTextArea(10, 30);
-        outputArea.setLineWrap(true);
-        outputArea.setWrapStyleWord(true);
-        outputArea.setEditable(false);
-        JScrollPane scrollPane = new JScrollPane(outputArea);
-        scrollPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, centerWrapper, scrollPane);
-        splitPane.setResizeWeight(0.3); // 30% for buttons
-        c.add(splitPane, BorderLayout.CENTER);
+//        outputArea = new JTextArea(10, 30);
+//        outputArea.setLineWrap(true);
+//        outputArea.setWrapStyleWord(true);
+//        outputArea.setEditable(false);
+//        JScrollPane scrollPane = new JScrollPane(outputArea);
+//        scrollPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+//
+//        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, centerWrapper, );
+//        splitPane.setResizeWeight(0.3); // 30% for buttons
+//        c.add(splitPane, BorderLayout.NORTH);
 
         backButton=new JButton("BACK");
-        c.add(backButton, BorderLayout.SOUTH);
+        c.add(backButton, BorderLayout.CENTER);
 
         setTitle("Reports");
         setSize(700, 400);
@@ -55,11 +57,47 @@ public class ReportsUI extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
 
-        sssButton.addActionListener(e -> outputArea.setText("SSS Report Generated."));
-        pagIbigButton.addActionListener(e -> outputArea.setText("Pag-Ibig Report Generated."));
-        philHealthButton.addActionListener(e -> outputArea.setText("Phil-Health Report Generated."));
-        birButton.addActionListener(e -> outputArea.setText("BIR Report Generated."));
-        yearEndTaxButton.addActionListener(e -> outputArea.setText("Year-End Tax Report Generated."));
+        sssButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SSSUI sssui = new SSSUI(employees);
+                sssui.setVisible(true);
+
+            }
+        });
+
+        pagIbigButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                PagIbigUI pagIbigUI = new PagIbigUI(employees);
+                pagIbigUI.setVisible(true);
+            }
+        });
+
+        yearEndTaxButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TaxUI taxUI = new TaxUI(employees);
+                taxUI.setVisible(true);
+            }
+        });
+
+        birButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                BirUI birUI = new BirUI(employees);
+                birUI.setVisible(true);
+            }
+        });
+
+        philHealthButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                PhilHealthUI philHealthUI = new PhilHealthUI(employees);
+                philHealthUI.setVisible(true);
+            }
+        });
+
 
         backButton.addActionListener(new ActionListener() {
             @Override

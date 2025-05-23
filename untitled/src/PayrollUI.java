@@ -11,7 +11,7 @@ public class PayrollUI extends JFrame{
     JTextField philHealthField, pagIbigField, sssField, taxField;
     JButton backB;
     Container c;
-    PayrollTableModel model;
+    SSSTableModel model;
     JTable table;
     JPanel formPanel,buttonPanel, deductionsPanel;
     JScrollPane scrollPane;
