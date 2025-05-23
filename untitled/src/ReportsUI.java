@@ -2,13 +2,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class ReportsUI extends JFrame {
 
-    JButton sssButton, pagIbigButton, philHealthButton, birButton, yearEndTaxButton;
+    JButton sssButton, pagIbigButton, philHealthButton, birButton, yearEndTaxButton, backButton;
     JTextArea outputArea;
     Container c;
-    public ReportsUI () {
+    public ReportsUI (ArrayList<Employee> employees) {
         c = this.getContentPane();
         c.setLayout(new BorderLayout());
 
@@ -45,6 +46,9 @@ public class ReportsUI extends JFrame {
         splitPane.setResizeWeight(0.3); // 30% for buttons
         c.add(splitPane, BorderLayout.CENTER);
 
+        backButton=new JButton("BACK");
+        c.add(backButton, BorderLayout.SOUTH);
+
         setTitle("Reports");
         setSize(700, 400);
         setLocationRelativeTo(null);
@@ -57,6 +61,13 @@ public class ReportsUI extends JFrame {
         birButton.addActionListener(e -> outputArea.setText("BIR Report Generated."));
         yearEndTaxButton.addActionListener(e -> outputArea.setText("Year-End Tax Report Generated."));
 
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MainUi mainUi=new MainUi(employees);
+                ReportsUI.this.dispose();
+            }
+        });
     }
 
     private void addButtonWithSpacing(JPanel panel, JButton button) {
@@ -65,9 +76,12 @@ public class ReportsUI extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            new ReportsUI().setVisible(true);
-        });
+        ArrayList<Employee> employees=new ArrayList<>();
+        employees.add(new Employee("1", "Kenneth Pedrajas", "DJ", 500));
+        employees.get(0).setHoursAttended(55.604);
+        employees.add(new Employee("2", "Ruan Justiniani", "Software Engineer", 350));
+        employees.add(new Employee("3", "Jujin Ferrer", "Software Developer", 350));
+        ReportsUI reportsUI=new ReportsUI(employees);
     }
 
 

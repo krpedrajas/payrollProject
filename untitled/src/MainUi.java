@@ -57,6 +57,15 @@ public class MainUi extends JFrame {
             }
         });
 
+        button3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ReportsUI reportsUI=new ReportsUI(employees);
+                reportsUI.setVisible(true);
+                MainUi.this.dispose();
+            }
+        });
+
 
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.pack();
