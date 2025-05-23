@@ -75,26 +75,18 @@ public class PayrollUI extends JFrame {
         buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
         buttonPanel.add(backB);
 
-        //might not use table for payroll page anymore (not final do not delete)
-
-//        model = new PayrollTableModel();
-//        table = new JTable(model);
-//        scrollPane = new JScrollPane(table);
-//
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new BorderLayout());
         topPanel.add(formPanel, BorderLayout.CENTER);
         topPanel.add(buttonPanel, BorderLayout.SOUTH);
 
         c.add(topPanel, BorderLayout.NORTH);
-//        c.add(scrollPane, BorderLayout.CENTER);
 
         this.setVisible(true);
         this.setTitle("Payroll");
         this.pack();
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-//        this.setSize(800, 600);
         this.setLocationRelativeTo(null);
     }
 
