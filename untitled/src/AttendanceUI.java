@@ -229,6 +229,7 @@ public class AttendanceUI extends JFrame {
         employees.add(new Employee("2", "Ruan Justiniani", "Software Engineer", 350));
         employees.add(new Employee("3", "Jujin Ferrer", "Software Developer", 350));
         AttendanceUI attendanceUI=new AttendanceUI(employees);
+
     }
 
 
