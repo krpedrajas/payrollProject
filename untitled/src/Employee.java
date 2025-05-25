@@ -94,8 +94,8 @@ public class Employee {
         this.philHealth=computePhilhealth(grossPay);
         this.pagIbig = computePagibig(grossPay);
         this.withHoldingTax = computeWithholdingTax(grossPay);
-        this.deductions = SSS + pagIbig + philHealth + withHoldingTax;
-        this.netPay = grossPay - deductions;
+        this.deductions =Math.round( (SSS + pagIbig + philHealth + withHoldingTax)*100.0)/100.0;
+        this.netPay = Math.round((grossPay - deductions)*100.0)/100.0;
     }
 
 

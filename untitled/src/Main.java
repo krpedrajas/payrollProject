@@ -7,7 +7,9 @@ public class Main{
         employees.add(new Employee("1", "Kenneth Pedrajas", "DJ", 500));
         employees.get(0).setHoursAttended(55.604);
         employees.add(new Employee("2", "Ruan Justiniani", "Software Engineer", 350));
+        employees.get(1).setHoursAttended(45.45);
         employees.add(new Employee("3", "Jujin Ferrer", "Software Developer", 350));
+        employees.get(2).setHoursAttended(89.09);
 
         MainUi mainUi = new MainUi(employees);
     }
