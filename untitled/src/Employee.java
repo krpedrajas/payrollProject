@@ -68,7 +68,7 @@ public class Employee {
     public void setHoursAttended(double hoursAttended) {
         this.hoursAttended = hoursAttended;
 
-        this.grossPay = hourlyRate * this.hoursAttended;
+        this.grossPay=Math.round(hourlyRate * this.hoursAttended*100.0)/100.0;
         this.SSS = computeSSS(grossPay);
         this.philHealth=computePhilhealth(grossPay);
         this.pagIbig = computePagibig(grossPay);
