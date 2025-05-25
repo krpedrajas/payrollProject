@@ -121,7 +121,7 @@ public class AttendanceUI extends JFrame {
                 }
                 if(matchedEmployee==null){
                     JOptionPane.showMessageDialog(AttendanceUI.this,
-                            "Employee not found", "Error", JOptionPane.ERROR_MESSAGE);
+                            "Employee not found.", "Invalid Employee ID", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
                 //check if time inputted is 24:00 (clock in only allows until 23:59)
@@ -240,6 +240,8 @@ public class AttendanceUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+
+
                 String employeeId = employeeIdField.getText().trim();
                 Employee matchedEmployee = null;
                 for (Employee employee : employees) {
@@ -247,6 +249,12 @@ public class AttendanceUI extends JFrame {
                         matchedEmployee = employee;
                         break;
                     }
+                }
+
+                if(matchedEmployee==null){
+                    JOptionPane.showMessageDialog(AttendanceUI.this,
+                            "Employee not found.", "Invalid Employee ID", JOptionPane.ERROR_MESSAGE);
+                    return;
                 }
 
                 String dateToday = dateField.getText();
