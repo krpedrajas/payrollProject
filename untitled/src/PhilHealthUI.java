@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class PhilHealthUI extends JFrame {
@@ -35,10 +37,22 @@ public class PhilHealthUI extends JFrame {
         textField.setText(String.valueOf(total));
         textField.setEditable(false);
 
+        JButton backB=new JButton("Back");
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
+        buttonPanel.add(backB);
+        c.add(buttonPanel, BorderLayout.SOUTH);
+
         this.setVisible(true);
         this.setTitle("Phil-Health Report");
         this.pack();
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        backB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                PhilHealthUI.this.dispose();
+            }
+        });
     }
 }

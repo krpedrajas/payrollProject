@@ -53,18 +53,18 @@ public class TaxTableModel extends AbstractTableModel {
             case 1:
                 return e.getName();
             case 2:
-                return e.getGrossPay();
+                return Math.round(e.getGrossPay()*100.0)/100.0;
             case 3:
-                return e.getSSS();
+                return Math.round(e.getSSS()*100.0)/100.0;
             case 4:
-                return e.getPagIbig();
+                return Math.round(e.getPagIbig()*100.0)/100.0;
             case 5:
-                return e.getPhilHealth();
+                return Math.round(e.getPhilHealth()*100.0)/100.0;
             case 6:
-                return e.getWithHoldingTax();
+                return Math.round(e.getWithHoldingTax()*100.0)/100.0;
             case 7:
                 double totaldeduction = e.getSSS()+e.getPagIbig()+e.getPhilHealth()+e.getWithHoldingTax();
-                return totaldeduction;
+                return Math.round(totaldeduction*100.0)/100.0;
         }
         return null;
     }

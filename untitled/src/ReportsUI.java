@@ -17,12 +17,14 @@ public class ReportsUI extends JFrame {
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         c.add(titleLabel, BorderLayout.NORTH);
 
+        //buttons
         sssButton = new JButton("Generate SSS");
         pagIbigButton = new JButton("Generate Pag-Ibig");
         philHealthButton = new JButton("Generate Phil-Health");
         birButton = new JButton("Generate BIR");
         yearEndTaxButton = new JButton("Generate Year End Tax");
 
+        //button panel
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
         addButtonWithSpacing(buttonPanel, sssButton);
@@ -36,20 +38,11 @@ public class ReportsUI extends JFrame {
 
         c.add(centerWrapper, BorderLayout.NORTH);
 
-
-//        outputArea = new JTextArea(10, 30);
-//        outputArea.setLineWrap(true);
-//        outputArea.setWrapStyleWord(true);
-//        outputArea.setEditable(false);
-//        JScrollPane scrollPane = new JScrollPane(outputArea);
-//        scrollPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-//
-//        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, centerWrapper, );
-//        splitPane.setResizeWeight(0.3); // 30% for buttons
-//        c.add(splitPane, BorderLayout.NORTH);
-
+        //back button
         backButton=new JButton("BACK");
-        c.add(backButton, BorderLayout.CENTER);
+        JPanel backButtonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
+        backButtonPanel.add(backButton);
+        c.add(backButton, BorderLayout.SOUTH);
 
         setTitle("Reports");
         setSize(700, 400);

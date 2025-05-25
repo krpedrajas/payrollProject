@@ -53,9 +53,9 @@ public class PhilHealthTableModel extends AbstractTableModel {
             case 1:
                 return e.getName();
             case 2:
-                return e.getGrossPay();
+                return Math.round(e.getGrossPay()*100.0)/100.0;
             case 3:
-                return e.getPhilHealth();
+                return Math.round(e.getPhilHealth()*100.0)/100.0;
         }
         return null;
     }

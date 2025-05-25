@@ -53,9 +53,9 @@ public class SSSTableModel extends AbstractTableModel {
             case 1:
                 return e.getName();
             case 2:
-                return e.getGrossPay();
+                return Math.round(e.getGrossPay()*100.0)/100.0;
             case 3:
-                return e.getSSS();
+                return Math.round(e.getSSS()*100.0)/100.0;
         }
         return null;
     }
