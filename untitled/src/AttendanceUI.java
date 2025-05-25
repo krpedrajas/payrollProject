@@ -16,14 +16,8 @@ public class AttendanceUI extends JFrame {
     Container c;
     JPanel formPanel, timePanel, buttonPanel, topPanel;
     JTextArea historyArea;
-    // create attendance history
-
-    // 1 - kennyPedrajas - Date - Time in
-    // 1 - KennyPedrajas - Date - LEAVE
-    //
 
     public AttendanceUI (ArrayList<Employee> employees){
-//        this.employees = employees;
         c = this. getContentPane();
         c.setLayout(new BorderLayout());
 
@@ -90,7 +84,7 @@ public class AttendanceUI extends JFrame {
         // Add wrapped topPanel to NORTH
         c.add(topPanel, BorderLayout.NORTH);
 
-// Create and add text area in center
+        // Create and add text area in center
         historyArea = new JTextArea(10, 40);
         historyArea.setLineWrap(true);
         historyArea.setWrapStyleWord(true);
@@ -165,7 +159,7 @@ public class AttendanceUI extends JFrame {
                 String dateToday = dateField.getText();
 
 
-                String history = matchedEmployee.getEmployeeId() + " - " + matchedEmployee.getName() + " - " + dateToday + " - " + clockedIn;
+                String history = matchedEmployee.getEmployeeId() + " - " + matchedEmployee.getName() + " - " + dateToday + " - " + clockedIn + " - IN";
                 matchedEmployee.addHistory(history);
                 System.out.println(matchedEmployee.getName());
                 historyArea.setText(matchedEmployee.getHistory());
@@ -209,7 +203,7 @@ public class AttendanceUI extends JFrame {
                 }
                 String dateToday = dateField.getText();
                 String clockOut = clockOutField.getText();
-                String history = matchedEmployee.getEmployeeId() + " - " + matchedEmployee.getName() + " - " + dateToday + " - " + clockOut;
+                String history = matchedEmployee.getEmployeeId() + " - " + matchedEmployee.getName() + " - " + dateToday + " - " + clockOut + " - OUT";
                 matchedEmployee.addHistory(history);
                 historyArea.setText(matchedEmployee.getHistory());
 
