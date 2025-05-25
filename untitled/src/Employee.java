@@ -19,6 +19,7 @@ public class Employee {
     private double philHealth;
     private double withHoldingTax;
     private double netPay;
+    private String history = "";
 
 
 
@@ -63,6 +64,26 @@ public class Employee {
 
     public double getHoursAttended() {
         return hoursAttended;
+    }
+
+    public double getEmployerSSS() {
+        return employerSSS;
+    }
+
+    public void setEmployerSSS(double employerSSS) {
+        this.employerSSS = employerSSS;
+    }
+
+    public String getHistory() {
+        return history;
+    }
+
+    public void setHistory(String history) {
+        this.history = history;
+    }
+
+    public void addHistory(String addition){
+        this.history += addition + "\n";
     }
 
     public void setHoursAttended(double hoursAttended) {

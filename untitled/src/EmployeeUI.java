@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -108,9 +109,42 @@ public class EmployeeUI extends JFrame{
         });
 
         addButton.addActionListener(new ActionListener() {
+
+            //check unique employeeID
             @Override
             public void actionPerformed(ActionEvent e) {
                 String employeeId= employeeIdField.getText();
+                boolean isFound = false;
+                for (Employee employee : employees){
+                    if(employee.getEmployeeId().equalsIgnoreCase(employeeId)){
+                        isFound = true;
+                        break;
+                    }
+                }
+
+                //only allows integers
+                try {
+                    Integer.parseInt(employeeId);
+                } catch (Exception exception) {
+                    JOptionPane.showMessageDialog(EmployeeUI.this, "ID must be an integer.", "Invalid ID", JOptionPane.ERROR_MESSAGE);
+                    employeeIdField.setText("");
+                    return;
+                }
+
+                //does not allow negative or zero employeeID numbers
+                if(Integer.parseInt(employeeId)<=0){
+                    JOptionPane.showMessageDialog(EmployeeUI.this, "ID must be more than zero.", "Invalid ID", JOptionPane.ERROR_MESSAGE);
+                    employeeIdField.setText("");
+                    return;
+                }
+
+                //check if existing employeeID
+                if(isFound){
+                    JOptionPane.showMessageDialog(EmployeeUI.this, "ID already exists.", "Invalid ID", JOptionPane.ERROR_MESSAGE);
+                    employeeIdField.setText("");
+                    return;
+                }
+
                 String name= nameField.getText();
                 String position=positionField.getText();
                 String salary= hourlyRateField.getText();
