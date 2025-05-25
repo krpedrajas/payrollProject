@@ -122,6 +122,23 @@ public class EmployeeUI extends JFrame{
                     }
                 }
 
+                //only allows integers
+                try {
+                    Integer.parseInt(employeeId);
+                } catch (Exception exception) {
+                    JOptionPane.showMessageDialog(EmployeeUI.this, "ID must be an integer.", "Invalid ID", JOptionPane.ERROR_MESSAGE);
+                    employeeIdField.setText("");
+                    return;
+                }
+
+                //does not allow negative or zero employeeID numbers
+                if(Integer.parseInt(employeeId)<=0){
+                    JOptionPane.showMessageDialog(EmployeeUI.this, "ID must be more than zero.", "Invalid ID", JOptionPane.ERROR_MESSAGE);
+                    employeeIdField.setText("");
+                    return;
+                }
+
+                //check if existing employeeID
                 if(isFound){
                     JOptionPane.showMessageDialog(EmployeeUI.this, "ID already exists.", "Invalid ID", JOptionPane.ERROR_MESSAGE);
                     employeeIdField.setText("");
