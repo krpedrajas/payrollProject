@@ -12,14 +12,25 @@ import java.util.regex.Pattern;
 public class AttendanceUI extends JFrame {
     JLabel employeeIdLabel, dateLabel, clockInLabel, clockOutLabel, timeLabel;
     JTextField employeeIdField, dateField, clockInField, clockOutField, timeField;
-    JButton clockInButton, clockOutButton, backButton;
+    JButton clockInButton, clockOutButton, backButton, leaveButton;
     Container c;
-    JPanel formPanel, timePanel, buttonPanel;
+    JPanel formPanel, timePanel, buttonPanel, topPanel;
+    JTextArea historyArea;
+
+
+
+    // create attendance history
+
+    // 1 - kennyPedrajas - Date - Time in
+    // 1 - KennyPedrajas - Date - LEAVE
+    //
 
     public AttendanceUI (ArrayList<Employee> employees){
 //        this.employees = employees;
         c = this. getContentPane();
         c.setLayout(new BorderLayout());
+
+
 
         //labels
         employeeIdLabel = new JLabel("Employee ID: ");
@@ -65,14 +76,32 @@ public class AttendanceUI extends JFrame {
         clockOutButton = new JButton("Clock Out");
         clockOutButton.setEnabled(false);
         backButton = new JButton("Back");
+        leaveButton = new JButton("Record Leave");
         buttonPanel = new JPanel(new FlowLayout());
         buttonPanel.add(backButton);
         buttonPanel.add(clockInButton);
         buttonPanel.add(clockOutButton);
+        buttonPanel.add(leaveButton);
 
-        c.add(formPanel, BorderLayout.NORTH);
-        c.add(timePanel, BorderLayout.CENTER);
-        c.add(buttonPanel, BorderLayout.SOUTH);
+        topPanel = new JPanel();
+
+        topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.Y_AXIS));
+        topPanel.add(formPanel);
+        topPanel.add(timePanel);
+        topPanel.add(buttonPanel);
+
+        // Add wrapped topPanel to NORTH
+        c.add(topPanel, BorderLayout.NORTH);
+
+// Create and add text area in center
+        historyArea = new JTextArea(10, 40);
+        historyArea.setLineWrap(true);
+        historyArea.setWrapStyleWord(true);
+        historyArea.setEditable(false);
+
+        JScrollPane scrollPane = new JScrollPane(historyArea);
+        c.add(scrollPane, BorderLayout.CENTER);
+
 
         this.setTitle("AttendanceUI");
         this.pack();
@@ -125,6 +154,7 @@ public class AttendanceUI extends JFrame {
                 clockOutButton.setEnabled(true);
                 clockInButton.setEnabled(false);
                 backButton.setEnabled(false);
+                leaveButton.setEnabled(false);
 
                 //disable employeeId and date fields
                 employeeIdField.setEditable(false);
@@ -132,6 +162,17 @@ public class AttendanceUI extends JFrame {
 
                 //clear time field
                 timeField.setText("");
+
+
+                String clockedIn = clockInField.getText();
+                String dateToday = dateField.getText();
+
+
+                String history = matchedEmployee.getEmployeeId() + " - " + matchedEmployee.getName() + " - " + dateToday + " - " + clockedIn;
+                matchedEmployee.addHistory(history);
+                System.out.println(matchedEmployee.getName());
+                historyArea.setText(matchedEmployee.getHistory());
+
             }
         });
 
@@ -169,6 +210,11 @@ public class AttendanceUI extends JFrame {
                         break;
                     }
                 }
+                String dateToday = dateField.getText();
+                String clockOut = clockOutField.getText();
+                String history = matchedEmployee.getEmployeeId() + " - " + matchedEmployee.getName() + " - " + dateToday + " - " + clockOut;
+                matchedEmployee.addHistory(history);
+                historyArea.setText(matchedEmployee.getHistory());
 
                 //add hours worked to employee's total hours
                 double totalHours = matchedEmployee.getHoursAttended() + hoursWorked;
@@ -182,6 +228,7 @@ public class AttendanceUI extends JFrame {
                 clockOutButton.setEnabled(false);
                 clockInButton.setEnabled(true);
                 backButton.setEnabled(true);
+                leaveButton.setEnabled(true);
 
                 //clear all fields (except date)
                 employeeIdField.setText("");
@@ -192,8 +239,36 @@ public class AttendanceUI extends JFrame {
                 //enable employeeId and date field
                 employeeIdField.setEditable(true);
                 dateField.setEditable(true);
+
+
+
             }
         });
+
+        leaveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                String employeeId = employeeIdField.getText().trim();
+                Employee matchedEmployee = null;
+                for (Employee employee : employees) {
+                    if (employee.getEmployeeId().equals(employeeId)) {
+                        matchedEmployee = employee;
+                        break;
+                    }
+                }
+
+                String dateToday = dateField.getText();
+                String history = matchedEmployee.getEmployeeId() + " - " + matchedEmployee.getName() + " - " + dateToday + " - LEAVE";
+                matchedEmployee.addHistory(history);
+                System.out.println(matchedEmployee.getName());
+                historyArea.setText(matchedEmployee.getHistory());
+                employeeIdField.setText("");
+
+
+            }
+        });
+
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
